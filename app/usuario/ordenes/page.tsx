@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { UserData } from "@/interface/Users";
 import { RiEmotionSadFill } from "react-icons/ri";
 import GlobalContext from "@/context";
+import Image from "next/image";
 
 export default function OrdersUser() {
   const [loading, setLoading] = useState(true);
@@ -53,9 +54,11 @@ export default function OrdersUser() {
                 <div key={item.id} className="w-full px-3 min-[400px]:px-6">
                   <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                     <div className="img-box max-lg:w-full">
-                      <img
+                      <Image
                         src={item.product.image[0].url}
                         alt={item.product.name}
+                        width={100}
+                        height={100}
                         className="aspect-square w-full lg:max-w-[140px] rounded-xl object-cover"
                       />
                     </div>

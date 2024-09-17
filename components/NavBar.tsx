@@ -152,8 +152,8 @@ const NavBar = () => {
                     </p>
                   </MenuItem>
 
-                  {user?.cart.cart_items.map((cart) => (
-                    <MenuItem>
+                  {user?.cart.cart_items.map((cart, index) => (
+                    <MenuItem key={index}>
                       <div className="flex  px-4 py-2 w-72 md:w-80">
                         <Image
                           src={cart.product.image[0]?.url}
