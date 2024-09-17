@@ -146,7 +146,7 @@ export default function Registrar() {
           <h1 className="text-2xl font-semibold">Regístrate</h1>
           <p className="text-lg">Hola, crea tu cuenta de Zazil</p>
           <Link
-            href="http://localhost:3000/api/auth/google"
+            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`}
             className="w-full bg-white border border-gray-300 p-3 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center space-x-2"
           >
             <FcGoogle className="h-5 w-5" />
