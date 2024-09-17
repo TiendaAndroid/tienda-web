@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { Product } from "@/interface/Products";
 import { UserData } from "@/interface/Users";
 import GlobalContext from "@/context";
+import { useRouter } from "next/navigation";
 
 export default function VerProducto({
   params,
@@ -19,7 +20,7 @@ export default function VerProducto({
   const [products, setProducts] = useState<Product>();
   const [quantity, setQuantity] = useState(1);
   const [agregado, setAgregado] = useState(false);
-
+  const router = useRouter();
   const context = useContext(GlobalContext);
   if (!context) {
     throw new Error("Home must be used within a GlobalProvider");
@@ -58,6 +59,11 @@ export default function VerProducto({
       const productInCart = cartData?.cart_items.find(
         (item: any) => item.product.id === products?.id
       );
+
+      if(!user){
+        router.push("/login")
+        return;
+      }
 
       if (productInCart) {
         console.log("El producto ya está en el carrito");
