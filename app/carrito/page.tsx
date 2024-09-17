@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import GlobalContext from "@/context";
 import { Currency, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -29,6 +29,14 @@ export default function Cart() {
   );
 
   const totalItems = user?.cart.cart_items.length;
+
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    } else {
+      router.push("/");
+    }
+  }, [user]);
 
   const onRemove = async (cartId: string) => {
     try {
@@ -198,7 +206,10 @@ export default function Cart() {
               </div>
             )}
             {user?.cart.cart_items.map((cart, index) => (
-              <div  key={index} className="flex flex-col min-[500px]:flex-row min-[500px]:items-center gap-5 py-6  border-b border-gray-200 group">
+              <div
+                key={index}
+                className="flex flex-col min-[500px]:flex-row min-[500px]:items-center gap-5 py-6  border-b border-gray-200 group"
+              >
                 <div className="w-full md:max-w-[126px]">
                   <Image
                     src={cart.product.image[0].url}
