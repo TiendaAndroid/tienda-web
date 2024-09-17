@@ -197,8 +197,8 @@ export default function Cart() {
                 No tienes ningún artículo en el carrito &#128546;
               </div>
             )}
-            {user?.cart.cart_items.map((cart) => (
-              <div className="flex flex-col min-[500px]:flex-row min-[500px]:items-center gap-5 py-6  border-b border-gray-200 group">
+            {user?.cart.cart_items.map((cart, index) => (
+              <div  key={index} className="flex flex-col min-[500px]:flex-row min-[500px]:items-center gap-5 py-6  border-b border-gray-200 group">
                 <div className="w-full md:max-w-[126px]">
                   <Image
                     src={cart.product.image[0].url}

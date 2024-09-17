@@ -31,7 +31,7 @@ export default function Registrar() {
     if (user) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, router]);
   async function handleUpdate() {
     if (password.length == 0) {
       setError(true);

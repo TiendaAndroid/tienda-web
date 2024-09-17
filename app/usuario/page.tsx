@@ -33,7 +33,7 @@ export default function VistaUsuario() {
       router.push("/login");
       setLoading(false);
     }
-  }, [user]);
+  }, [user, router]);
 
   const handleLogout = () => {
     Cookies.remove("token");

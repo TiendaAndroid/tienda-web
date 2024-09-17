@@ -26,7 +26,7 @@ export default function VerProducto({ params }: { params: { token: string } }) {
     };
 
     checkToken();
-  });
+  },[router]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white">
