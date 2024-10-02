@@ -12,7 +12,7 @@ export default function Home() {
   async function handleSubmit() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/email/reset`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/email/reset`,
         {
           method: "POST",
           headers: {

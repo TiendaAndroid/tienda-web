@@ -38,7 +38,7 @@ export default function Registrar() {
     } else {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/email`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/email`,
           {
             method: "POST",
             headers: {
@@ -75,7 +75,7 @@ export default function Registrar() {
     async function createUser() {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`,
           {
             method: "POST",
             headers: {
@@ -146,7 +146,7 @@ export default function Registrar() {
           <h1 className="text-2xl font-semibold">Regístrate</h1>
           <p className="text-lg">Hola, crea tu cuenta de Zazil</p>
           <Link
-            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`}
+            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`}
             className="w-full bg-white border border-gray-300 p-3 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center space-x-2"
           >
             <FcGoogle className="h-5 w-5" />

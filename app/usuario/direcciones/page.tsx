@@ -58,7 +58,7 @@ export default function VistaUsuario() {
     try {
       console.log("Datos enviados:", nuevaDireccion);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/directions`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/directions`,
         {
           method: "POST",
           headers: {
@@ -91,7 +91,7 @@ export default function VistaUsuario() {
     try {
       console.log("Datos enviados:", nuevaDireccion);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/directions/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/directions/${id}`,
         {
           method: "DELETE",
           headers: {

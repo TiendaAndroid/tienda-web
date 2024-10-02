@@ -32,7 +32,7 @@ export default function VerProducto({
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${params.productoId}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/${params.productoId}`
         );
         const data = await response.json();
         setProducts(data);
@@ -74,7 +74,7 @@ export default function VerProducto({
         return;
       }
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart/item`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/item`,
         {
           method: "POST",
           headers: {

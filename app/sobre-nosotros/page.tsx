@@ -11,8 +11,8 @@ export default function SobreNosotros() {
             Una menstruación sostenible
           </h1>
           <p className="mt-4 text-lg">
-            “Juntos, iluminaremos el camino hacia una generación libre,
-            informada y empoderada." ¡Libertad para Todas!
+          &quot;Juntos, iluminaremos el camino hacia una generación libre,
+            informada y empoderada.&quot; ¡Libertad para Todas!
           </p>
           <Link
             href="/"

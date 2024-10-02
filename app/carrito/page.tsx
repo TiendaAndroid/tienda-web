@@ -36,12 +36,12 @@ export default function Cart() {
     } else {
       router.push("/");
     }
-  }, [user]);
+  }, [user, router]);
 
   const onRemove = async (cartId: string) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart/item/${cartId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/item/${cartId}`,
         {
           method: "DELETE",
         }
@@ -63,7 +63,7 @@ export default function Cart() {
     if (quantity > 0) {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart/item/${cartId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/item/${cartId}`,
           {
             method: "PATCH",
             body: JSON.stringify({ quantity }),
@@ -103,7 +103,7 @@ export default function Cart() {
       const token = Cookies.get("token");
 
       const responseDir = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/directions/${selectedAddressId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/directions/${selectedAddressId}`,
         {
           method: "GET",
           headers: {
@@ -115,7 +115,7 @@ export default function Cart() {
       const dataDir = await responseDir.json();
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/payments/create-payment-session`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/payments/create-payment-session`,
         {
           method: "POST",
           headers: {
@@ -140,7 +140,7 @@ export default function Cart() {
 
       if (response.ok) {
         const responseDir = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/cart/${user?.cart.id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${user?.cart.id}`,
           {
             method: "DELETE",
           }

@@ -10,7 +10,7 @@ export default function VerProducto({ params }: { params: { token: string } }) {
     const checkToken = async () => {
       if (params.token) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/profile`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`,
           {
             method: "GET",
             headers: {
@@ -26,7 +26,7 @@ export default function VerProducto({ params }: { params: { token: string } }) {
     };
 
     checkToken();
-  },[router]);
+  },[router, params]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white">

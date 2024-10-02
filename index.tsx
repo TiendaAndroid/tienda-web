@@ -22,7 +22,7 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     const checkToken = async () => {
       if (token) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/profile`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/profile`,
           {
             method: "GET",
             headers: {

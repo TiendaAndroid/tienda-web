@@ -27,7 +27,7 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?offset=${offset}&limit=${limit}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/products?offset=${offset}&limit=${limit}`
         );
         const data = await response.json();
         setProducts(data.data);

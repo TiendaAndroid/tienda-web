@@ -17,7 +17,7 @@ export default function Reset({ params }: { params: { token: string } }) {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/change/password/${params.token}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/change/password/${params.token}`
         );
         const data = await response.json();
 
@@ -40,7 +40,7 @@ export default function Reset({ params }: { params: { token: string } }) {
     } else {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/change/password`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/change/password`,
           {
             method: "PATCH",
             headers: {

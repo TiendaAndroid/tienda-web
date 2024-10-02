@@ -30,12 +30,12 @@ export default function Home() {
     } else {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, router]);
 
   async function handleSubmit() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
         {
           method: "POST",
           headers: {
@@ -79,7 +79,7 @@ export default function Home() {
         <p className="text-md">Hola, bienvenido de nuevo &#128075;</p>
 
         <Link
-          href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`}
+          href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`}
           className="w-full bg-white border border-gray-300 p-3 rounded-md text-gray-700 hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center space-x-2"
         >
           <FcGoogle className="h-5 w-5" />
