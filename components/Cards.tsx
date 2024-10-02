@@ -10,7 +10,7 @@ interface CardProps {
   item: Product;
 }
 
-const Card: React.FC<CardProps> = ({ item }) => {
+const Cards: React.FC<CardProps> = ({ item }) => {
   const context = useContext(GlobalContext);
   if (!context) {
     throw new Error("Home must be used within a GlobalProvider");
@@ -46,10 +46,11 @@ const Card: React.FC<CardProps> = ({ item }) => {
       console.log(error);
     }
   }
+
   return (
     <Link
       href={`/producto/${item.id}`}
-      className=" rounded-lg overflow-hidden border-2 border-transparent hover:border-gray-300"
+      className=" rounded-lg overflow-hidden border-2 border-transparent hover:shadow-lg"
     >
       <Image
         src={item.image[0].url}
@@ -71,8 +72,9 @@ const Card: React.FC<CardProps> = ({ item }) => {
           Añadir al Carrito
         </button>
       </div>
+      
     </Link>
   );
 };
 
-export default Card;
+export default Cards;

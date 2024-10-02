@@ -87,7 +87,7 @@ const NavBar = () => {
     <header className="bg-white shadow-md w-full z-40">
       <div className="container mx-auto px-8 py-3 flex justify-between items-center">
         <div className="flex flex-row items-center text-2xl font-bold text-primary">
-          Zazil
+          <Link href={"/"}>Zazil</Link>
         </div>
         <nav className="hidden md:flex space-x-8 text-md items-center">
           <Link
@@ -96,24 +96,24 @@ const NavBar = () => {
           >
             Inicio
           </Link>
-          <a
-            href="#"
+          <Link
+            href={'/producto'}
             className="text-gray-600 hover:text-primary transition-colors duration-300"
           >
             Productos
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href={'/sobre-nosotros'}
             className="text-gray-600 hover:text-primary transition-colors duration-300"
           >
             Sobre Nosotros
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/sobre-nosotros"
             className="text-gray-600 hover:text-primary transition-colors duration-300"
           >
             Contacto
-          </a>
+          </Link>
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
@@ -130,14 +130,54 @@ const NavBar = () => {
             </button>
           </form>
         </nav>
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center space-x-3 md:space-x-5">
+          {token ? (
+            <Link
+              href={token ? "/usuario" : "/login"}
+              className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm  hover:bg-gray-50"
+            >
+              <CircleUserRound className="h-7 w-7 text-gray-600" />
+            </Link>
+          ) : (
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm   hover:bg-gray-50">
+                  <CircleUserRound className="h-7 w-7 text-gray-600" />
+                </MenuButton>
+              </div>
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                <div className="py-1">
+                  <MenuItem>
+                    <Link
+                      href={"/login"}
+                      className="block px-4 py-2 text-sm font-bold text-gray-800"
+                    >
+                      Iniciar Sesión
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href={"/registrar"}
+                      className="block px-4 py-2 text-sm font-bold text-gray-800"
+                    >
+                      Registrar
+                    </Link>
+                  </MenuItem>
+                </div>
+              </MenuItems>
+            </Menu>
+          )}
+
           {user?.cart.cart_items?.length ?? 0 > 0 ? (
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <div className="bg-primary rounded-full pointer-events-none text-white font-bold w-5 h-5 text-sm text-center absolute right-0">
                   {user?.cart.cart_items.length}
                 </div>
-                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm   hover:bg-gray-50">
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm  hover:bg-gray-50">
                   <ShoppingCart />
                 </MenuButton>
               </div>
@@ -219,7 +259,7 @@ const NavBar = () => {
               </div>
               <MenuItems
                 transition
-                className="absolute right-0 z-10 mt-2 md:w-80 w-72 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                className="absolute right-0 z-10 mt-2 md:w-80 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <div className="py-1">
                   <MenuItem>
@@ -228,8 +268,8 @@ const NavBar = () => {
                     </p>
                   </MenuItem>
                   <MenuItem>
-                    <div className="flex  px-4 py-2 w-72 md:w-80">
-                      <p className="block px-4 py-2 text-sm font-bold justify-center items-center text-gray-800">
+                    <div className="flex  px-4 py-2 w-64 md:w-80">
+                      <p className="block px-4 py-2 text-sm font-bold justify-center text-center items-center text-gray-800">
                         Aun no tienes artículos en el carrito
                       </p>
                     </div>
@@ -256,9 +296,6 @@ const NavBar = () => {
             </Menu>
           )}
 
-          <Link href={token ? "/usuario" : "/login"} className="mr-2">
-            <CircleUserRound className="h-7 w-7 text-gray-600" />
-          </Link>
           <button className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <X className="h-7 w-7 text-gray-600" /> : <IoMenu />}
           </button>
@@ -285,24 +322,24 @@ const NavBar = () => {
           >
             Inicio
           </Link>
-          <a
-            href="#"
-            className="block py-2 px-4 text-gray-600 bg-pink-100 w-full text-center"
-          >
-            Productos
-          </a>
-          <a
+          <Link
             href="#"
             className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
           >
+            Productos
+          </Link>
+          <Link
+            href={'/sobre-nosotros'}
+            className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
+          >
             Sobre Nosotros
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
           >
             Contacto
-          </a>
+          </Link>
         </div>
       </div>
     </header>

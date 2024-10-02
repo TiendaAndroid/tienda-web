@@ -1,5 +1,5 @@
 "use client";
-import Card from "@/components/Card";
+import Cards from "@/components/Cards";
 import NavBar from "@/components/NavBar";
 import { Product } from "@/interface/Products";
 import { Check } from "lucide-react";
@@ -7,9 +7,14 @@ import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Spinner } from "@nextui-org/spinner";
 import GlobalContext from "@/context";
+import { Pagination } from "@nextui-org/react";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(12);
+  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const context = useContext(GlobalContext);
   if (!context) {
@@ -21,16 +26,24 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products?offset=${offset}&limit=${limit}`
+        );
         const data = await response.json();
         setProducts(data.data);
+        setTotalPages(Math.ceil(data.totalResults / limit));
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [offset, limit]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setOffset(page - 1);
+  };
 
   return (
     <main className="flex h-screen flex-col items-center">
@@ -46,9 +59,6 @@ export default function Home() {
                 Descubre nuestras toallas femeninas de algodón, suaves con tu
                 piel y con el medio ambiente.
               </p>
-              <button className="bg-primary p-3 rounded-md text-white hover:bg-pink-700 transition-colors duration-300">
-                Comprar Ahora
-              </button>
             </div>
             <div className="md:w-1/2"></div>
           </div>
@@ -60,8 +70,18 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 p-8">
               {products.map((product) => (
-                <Card key={product.id} item={product} />
+                <Cards key={product.id} item={product} />
               ))}
+            </div>
+            <div className="flex w-full justify-center">
+              <Pagination
+                showControls
+                total={totalPages}
+                initialPage={1}
+                page={currentPage}
+                color={"primary"}
+                onChange={handlePageChange}
+              />
             </div>
           </div>
         </section>
