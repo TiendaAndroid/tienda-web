@@ -139,12 +139,6 @@ export default function Cart() {
       const data = await response.json();
 
       if (response.ok) {
-        const responseDir = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/cart/${user?.cart.id}`,
-          {
-            method: "DELETE",
-          }
-        );
         router.push(data.url);
       } else {
         console.error("Error al crear la sesión de pago", data);
