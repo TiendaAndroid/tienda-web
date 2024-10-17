@@ -87,6 +87,8 @@ export default function Registrar() {
               email,
               token,
               password,
+              birthDay: "0",
+              phoneNumber: "0"
             }),
           }
         );
@@ -96,7 +98,7 @@ export default function Registrar() {
         if (response.ok) {
           console.log(data);
           localStorage.setItem("token", data.token);
-          window.location.href = "/";
+          window.location.href = "/zazil/tienda-web/login";
         } else {
           setErrorVerify(true);
           console.log(data.message);
