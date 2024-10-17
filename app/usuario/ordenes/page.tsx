@@ -106,7 +106,7 @@ export default function OrdersUser() {
                                 Fecha de entrega estimada
                               </p>
                               <p className="font-medium text-base whitespace-nowrap leading-7 lg:mt-3 text-emerald-500">
-                                15/09/2024
+                                {order?.deliveryDate ? new Date(order.deliveryDate).toLocaleDateString('es-ES') : ''}
                               </p>
                             </div>
                           </div>

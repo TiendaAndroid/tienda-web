@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { Spinner } from "@nextui-org/spinner";
 import GlobalContext from "@/context";
 import { Pagination } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -59,6 +60,13 @@ export default function Home() {
                 Descubre nuestras toallas femeninas de algodón, suaves con tu
                 piel y con el medio ambiente.
               </p>
+              <Link
+                href="/app-release.apk"
+                download="app-release.apk"
+                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-pink-600"
+              >
+                Descargar App
+              </Link>
             </div>
             <div className="md:w-1/2"></div>
           </div>

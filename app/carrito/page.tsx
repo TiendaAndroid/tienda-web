@@ -196,7 +196,7 @@ export default function Cart() {
             </div>
             {user?.cart.cart_items.length == 0 && (
               <div className="flex justify-center flex-col min-[500px]:flex-row min-[500px]:items-center gap-5 py-6  border-b border-gray-200 group">
-                No tienes ningún artículo en el carrito &#128546;
+                No tienes ningún artículo en el carrito
               </div>
             )}
             {user?.cart.cart_items.map((cart, index) => (

@@ -7,4 +7,5 @@ export interface OrdersData {
   receiptUrl: string;
   paymentId: string;
   status:string;
+  deliveryDate: string;
 }

@@ -28,7 +28,7 @@ import {
 } from "@headlessui/react";
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
+  { name: "Most Popular", href: "#", current: false },
   { name: "Best Rating", href: "#", current: false },
   { name: "Newest", href: "#", current: false },
   { name: "Price: Low to High", href: "#", current: false },
@@ -39,25 +39,25 @@ const filters = [
     id: "color",
     name: "Color",
     options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
+      { value: "Blanco", label: "Blanco", checked: false },
+      { value: "Amarillo", label: "Amarillo", checked: false },
+      { value: "Rojo", label: "Rojo", checked: false },
+      { value: "Azul", label: "Azul", checked: false },
+      { value: "Negro", label: "Negro", checked: false },
+      { value: "Rosa", label: "Rosa", checked: false },
     ],
   },
   {
     id: "category",
     name: "Category",
     options: [
-      { value: "new-arrivals", label: "Regular", checked: false },
-      { value: "sale", label: "Nocturna", checked: false },
-      { value: "travel", label: "Teen", checked: true },
-      { value: "organization", label: "Panties", checked: false },
-      { value: "accessories", label: "Kits", checked: false },
+      { value: "Toalla%20Regular", label: "Regular", checked: false },
+      { value: "Toalla%20Nocturna", label: "Nocturna", checked: false },
+      { value: "Toalla%20Teen", label: "Teen", checked: true },
+      { value: "Pantiprotectores%20Diarios", label: "Panties", checked: false },
+      { value: "Kits", label: "Kits", checked: false },
     ],
-  }
+  },
 ];
 
 function classNames(...classes: string[]) {
@@ -65,12 +65,17 @@ function classNames(...classes: string[]) {
 }
 
 export default function Productos() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]); // Asegurar que products siempre es un array vacío por defecto
   const [totalPages, setTotalPages] = useState(0);
   const [limit, setLimit] = useState(9);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState<{
+    type: string;
+    value: string;
+  } | null>(null);
 
   const context = useContext(GlobalContext);
   if (!context) {
@@ -81,26 +86,44 @@ export default function Productos() {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/products?offset=${offset}&limit=${limit}`
-        );
+        let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products?offset=${offset}&limit=${limit}`;
+
+        if (selectedFilter) {
+          const { type, value } = selectedFilter;
+          if (type === "color") {
+            apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/color/${value}`;
+          } else if (type === "category") {
+            apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/products/tipo/${value}`;
+          }
+        }
+
+        console.log(apiUrl);
+
+        const response = await fetch(apiUrl);
         const data = await response.json();
-        setProducts(data.data);
+        setProducts(data.data || []); // Asegurar que products siempre es un array
         setTotalPages(Math.ceil(data.totalResults / limit));
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [offset, limit]);
+  }, [offset, limit, selectedFilter]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setOffset(page - 1);
   };
 
+  const handleFilterChange = (type: string, value: string) => {
+    setSelectedFilter({ type, value });
+    setCurrentPage(1);
+  };
   return (
     <main className="flex h-screen flex-col items-center">
       <div className="flex flex-col w-full">
@@ -175,7 +198,10 @@ export default function Productos() {
                                   defaultChecked={option.checked}
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
-                                  type="checkbox"
+                                  type="radio"
+                                  onChange={() =>
+                                    handleFilterChange(section.id, option.value)
+                                  }
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
                                 <label
@@ -202,41 +228,6 @@ export default function Productos() {
                 </h1>
 
                 <div className="flex items-center">
-                  <Menu as="div" className="relative inline-block text-left">
-                    <div>
-                      <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                        Sort
-                        <ChevronDownIcon
-                          aria-hidden="true"
-                          className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                        />
-                      </MenuButton>
-                    </div>
-
-                    <MenuItems
-                      transition
-                      className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                    >
-                      <div className="py-1">
-                        {sortOptions.map((option) => (
-                          <MenuItem key={option.name}>
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                "block px-4 py-2 text-sm data-[focus]:bg-gray-100"
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          </MenuItem>
-                        ))}
-                      </div>
-                    </MenuItems>
-                  </Menu>
-
                   <button
                     type="button"
                     className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
@@ -306,8 +297,11 @@ export default function Productos() {
                                   defaultChecked={option.checked}
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
-                                  type="checkbox"
+                                  type="radio"
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  onChange={() =>
+                                    handleFilterChange(section.id, option.value)
+                                  }
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -325,11 +319,24 @@ export default function Productos() {
 
                   {/* Product grid */}
                   <div className="lg:col-span-3">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-8">
-                      {products.map((product) => (
-                        <Cards key={product.id} item={product} />
-                      ))}
-                    </div>
+                    {loading ? (
+                      <div className="flex justify-center items-center h-64">
+                        <Spinner size="lg" />
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-8">
+                        {products.length > 0 ? (
+                          products.map((product) => (
+                            <Cards key={product.id} item={product} />
+                          ))
+                        ) : (
+                          <p className="text-center text-gray-500">
+                            No products found.
+                          </p>
+                        )}
+                      </div>
+                    )}
+
                     <div className="flex w-full justify-center">
                       <Pagination
                         showControls

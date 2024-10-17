@@ -97,22 +97,16 @@ const NavBar = () => {
             Inicio
           </Link>
           <Link
-            href={'/producto'}
+            href={"/producto"}
             className="text-gray-600 hover:text-primary transition-colors duration-300"
           >
             Productos
           </Link>
           <Link
-            href={'/sobre-nosotros'}
+            href={"/sobre-nosotros"}
             className="text-gray-600 hover:text-primary transition-colors duration-300"
           >
             Sobre Nosotros
-          </Link>
-          <Link
-            href="/sobre-nosotros"
-            className="text-gray-600 hover:text-primary transition-colors duration-300"
-          >
-            Contacto
           </Link>
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
@@ -329,16 +323,10 @@ const NavBar = () => {
             Productos
           </Link>
           <Link
-            href={'/sobre-nosotros'}
+            href={"/sobre-nosotros"}
             className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
           >
             Sobre Nosotros
-          </Link>
-          <Link
-            href="#"
-            className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
-          >
-            Contacto
           </Link>
         </div>
       </div>
