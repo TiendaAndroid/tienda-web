@@ -52,7 +52,7 @@ export default function Home() {
 
       if (response.ok) {
         Cookies.set("token", data.token, { expires: 30 });
-        window.location.href = "/";
+        window.location.href = "/zazil/tienda-web";
       } else {
         setError(true);
       }
@@ -73,7 +73,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-white">
-      <div className="bg-white rounded-xl items-center flex flex-col space-y-3 w-1/3">
+      <div className="bg-white rounded-xl items-center flex flex-col space-y-3  w-full md:w-1/3 md:p-0 p-5">
         <h1 className="text-2xl font-semibold">Iniciar sesión</h1>
 
         <p className="text-md">Hola, bienvenido de nuevo &#128075;</p>

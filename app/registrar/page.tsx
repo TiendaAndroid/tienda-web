@@ -29,7 +29,7 @@ export default function Registrar() {
 
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push("/zazil/tienda-web");
     }
   }, [user, router]);
   async function handleUpdate() {
