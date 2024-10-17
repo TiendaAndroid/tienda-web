@@ -317,7 +317,7 @@ const NavBar = () => {
             Inicio
           </Link>
           <Link
-            href="#"
+            href="/producto"
             className="block py-2 px-4 text-gray-600 hover:bg-pink-100 w-full text-center"
           >
             Productos
