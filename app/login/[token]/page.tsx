@@ -20,7 +20,7 @@ export default function VerProducto({ params }: { params: { token: string } }) {
         );
         if (response.ok) {
           Cookies.set("token", params.token, { expires: 30 });
-          router.push("/zazil/tienda-web");
+          router.push("/");
         }
       }
     };

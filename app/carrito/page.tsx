@@ -339,6 +339,12 @@ export default function Cart() {
                   ${totalCost}
                 </p>
               </div>
+              <div className="flex items-center justify-between pb-6">
+                <p className="font-normal text-lg leading-8 text-black">IVA</p>
+                <p className="font-medium text-lg leading-8 text-black">
+                  ${totalCost ? totalCost * 0.16 : 0}
+                </p>
+              </div>
               <form>
                 <label className="flex items-center mb-1.5 text-gray-400 text-sm font-medium">
                   Código de promoción
@@ -408,7 +414,7 @@ export default function Cart() {
                     {totalItems} Articulo
                   </p>
                   <p className="font-semibold text-xl leading-8 text-primary">
-                    ${totalCost}
+                    ${(totalCost ?? 0) * 1.16}
                   </p>
                 </div>
                 {error && !selectedAddressId && (
